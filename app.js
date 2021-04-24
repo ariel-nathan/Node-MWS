@@ -5,6 +5,9 @@ import cron from "node-cron";
 import express from "express";
 import nodemailer from "nodemailer";
 
+// import { response } from "./MerchantListingsData.js";
+// console.log(response[0]);
+
 const PORT = process.env.PORT || 3000;
 
 dotenv.config();
@@ -15,13 +18,18 @@ app.listen(PORT, () => {
   console.log(`Running on Port: ${PORT}`);
 });
 
+//Process Imports
 const EMAIL_RECIPIENT = process.env.EMAIL_RECIPIENT;
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
+// const MWS_SECRET_KEY = process.env.MWS_SECRET_KEY;
+// const MWS_SELLER_ID = process.env.MWS_SELLER_ID;
+// const MWS_AUTH_TOKEN = process.env.MWS_AUTH_TOKEN;
+// const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+// const MONGODB_CONNECTION_URL = process.env.MONGODB_CONNECTION_URL;
 
-async function main() {
-  const account = await nodemailer.createTestAccount();
-
+//Nodemailer
+async function sendEmail() {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -49,18 +57,12 @@ async function main() {
 
 cron.schedule("0 * * * *", () => {
   console.log("running every hour");
-  main().catch((err) => {
+  sendEmail().catch((err) => {
     console.log(err);
   });
 });
 
-// const MWS_SECRET_KEY = process.env.MWS_SECRET_KEY;
-// const MWS_SELLER_ID = process.env.MWS_SELLER_ID;
-// const MWS_AUTH_TOKEN = process.env.MWS_AUTH_TOKEN;
-// const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
-// const MONGODB_CONNECTION_URL = process.env.MONGODB_CONNECTION_URL;
-
-//MongoDB
+// MongoDB
 // const AFNProductSchema = new Mongoose.Schema({
 //   "seller-sku": String,
 //   "fulfillment-channel-sku": String,
@@ -70,6 +72,57 @@ cron.schedule("0 * * * *", () => {
 //   "Quantity Available": Number,
 // });
 // const Item = Mongoose.model("item", AFNProductSchema);
+
+// const MerchantListingDataSchema = new Mongoose.Schema({
+//   "item-name": String,
+//   "item-description": String,
+//   "listing-id": String,
+//   "seller-sku": String,
+//   price: String,
+//   quantity: String,
+//   "open-date": String,
+//   "image-url": String,
+//   "item-is-marketplace": String,
+//   "product-id-type": String,
+//   "zshop-shipping-fee": String,
+//   "item-note": String,
+//   "item-condition": String,
+//   "zshop-category1": String,
+//   "zshop-browse-path": String,
+//   "zshop-storefront-feature": String,
+//   asin1: String,
+//   asin2: String,
+//   asin3: String,
+//   "will-ship-internationally": String,
+//   "expedited-shipping": String,
+//   "zshop-boldface": String,
+//   "product-id": String,
+//   "bid-for-featured-placement": String,
+//   "add-delete": String,
+//   "pending-quantity": String,
+//   "fulfillment-channel": String,
+//   "Business Price": String,
+//   "Quantity Price Type": String,
+//   "Quantity Lower Bound 1": String,
+//   "Quantity Price 1": String,
+//   "Quantity Lower Bound 2": String,
+//   "Quantity Price 2": String,
+//   "Quantity Lower Bound 3": String,
+//   "Quantity Price 3": String,
+//   "Quantity Lower Bound 4": String,
+//   "Quantity Price 4": String,
+//   "Quantity Lower Bound 5": String,
+//   "Quantity Price 5": String,
+//   "merchant-shipping-group": String,
+//   "Progressive Price Type": String,
+//   "Progressive Lower Bound 1": String,
+//   "Progressive Price 1": String,
+//   "Progressive Lower Bound 2": String,
+//   "Progressive Price 2": String,
+//   "Progressive Lower Bound 3": String,
+//   "Progressive Price 3": String,
+// });
+// const Product = new Mongoose.model("product", MerchantListingDataSchema);
 
 // Mongoose.connect(MONGODB_CONNECTION_URL, {
 //   useNewUrlParser: true,
@@ -81,13 +134,56 @@ cron.schedule("0 * * * *", () => {
 // db.on("error", console.error.bind(console, "connection error:"));
 // db.once("open", function () {
 //   console.log("Connected to DB");
-//   const ovenmitt = new Item({
-//     "seller-sku": "028332694636-UPC",
-//     "fulfillment-channel-sku": "B07W425S4M",
-//     asin: "B07W425S4M",
-//     "condition-type": "NewItem",
-//     "Warehouse-Condition-code": "SELLABLE",
-//     "Quantity Available": "0",
+//   const ovenmitt = new Product({
+//     "item-name":
+//       'SoHome Summer Holiday Buffalo Checkered Tablecloth, Stylish Festive Tablecloth, Stain Resistant/Machine Washable Polyester, 60"x144" Rectangle Navy/White',
+//     "item-description":
+//       "Create the perfect table setting with the Buffalo Check tablecloth by SoHome. The trendy and charming buffalo check pattern makes the perfect backdrop for your dinnerware and will also complement your modern farmhouse d�cor. Made with a cotton-rich, heavyweight fabric that is water repellent, stain resistant and fade resistant. This table cover is perfect for festive brunches, everyday meals, holiday parties and formal dinners. Available in a variety of sizes and colors to best suit your d�cor needs.",
+//     "listing-id": "1116XLSQAYQ",
+//     "seller-sku": "028332733120",
+//     price: "29.99",
+//     quantity: "",
+//     "open-date": "2020-11-16 11:44:35 PST",
+//     "image-url": "",
+//     "item-is-marketplace": "y",
+//     "product-id-type": "3",
+//     "zshop-shipping-fee": "",
+//     "item-note": "",
+//     "item-condition": "11",
+//     "zshop-category1": "",
+//     "zshop-browse-path": "",
+//     "zshop-storefront-feature": "",
+//     asin1: "B08DGY67Z6",
+//     asin2: "",
+//     asin3: "",
+//     "will-ship-internationally": "",
+//     "expedited-shipping": "",
+//     "zshop-boldface": "",
+//     "product-id": "028332733120",
+//     "bid-for-featured-placement": "",
+//     "add-delete": "",
+//     "pending-quantity": "",
+//     "fulfillment-channel": "AMAZON_NA",
+//     "Business Price": "",
+//     "Quantity Price Type": "",
+//     "Quantity Lower Bound 1": "",
+//     "Quantity Price 1": "",
+//     "Quantity Lower Bound 2": "",
+//     "Quantity Price 2": "",
+//     "Quantity Lower Bound 3": "",
+//     "Quantity Price 3": "",
+//     "Quantity Lower Bound 4": "",
+//     "Quantity Price 4": "",
+//     "Quantity Lower Bound 5": "",
+//     "Quantity Price 5": "",
+//     "merchant-shipping-group": "Default-Template",
+//     "Progressive Price Type": "",
+//     "Progressive Lower Bound 1": "",
+//     "Progressive Price 1": "",
+//     "Progressive Lower Bound 2": "",
+//     "Progressive Price 2": "",
+//     "Progressive Lower Bound 3": "",
+//     "Progressive Price 3": "",
 //   });
 //   ovenmitt.save((err, ovenmitt) => {
 //     if (err) return console.log(err);
@@ -105,7 +201,7 @@ cron.schedule("0 * * * *", () => {
 //     Action: "GetReportList",
 //     SellerId: MWS_SELLER_ID,
 //     MWSAuthToken: MWS_AUTH_TOKEN,
-//     "ReportTypeList.Type.1": "_GET_AFN_INVENTORY_DATA_",
+//     "ReportTypeList.Type.1": "_GET_MERCHANT_LISTINGS_DATA_",
 //   },
 //   (error, response) => {
 //     if (error) {
