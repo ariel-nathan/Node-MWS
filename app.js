@@ -1,8 +1,14 @@
 import MwsApi from "amazon-mws";
 import Mongoose from "mongoose";
 import dotenv from "dotenv";
+import cron from "node-cron";
+import express from "express";
 
 dotenv.config();
+
+cron.schedule("* * * * *", () => {
+  console.log("running every minute");
+});
 
 const MWS_SECRET_KEY = process.env.MWS_SECRET_KEY;
 const MWS_SELLER_ID = process.env.MWS_SELLER_ID;
@@ -46,42 +52,42 @@ const MONGODB_CONNECTION_URL = process.env.MONGODB_CONNECTION_URL;
 // });
 
 //MWS API
-const mws = new MwsApi();
-mws.setApiKey(AWS_ACCESS_KEY_ID, MWS_SECRET_KEY);
+// const mws = new MwsApi();
+// mws.setApiKey(AWS_ACCESS_KEY_ID, MWS_SECRET_KEY);
 
-mws.reports.search(
-  {
-    Version: "2009-01-01",
-    Action: "GetReportList",
-    SellerId: MWS_SELLER_ID,
-    MWSAuthToken: MWS_AUTH_TOKEN,
-    "ReportTypeList.Type.1": "_GET_AFN_INVENTORY_DATA_",
-  },
-  (error, response) => {
-    if (error) {
-      console.log("error ", error);
-      return;
-    }
-    getReport(response.ReportInfo[0].ReportId);
-    console.log("response", response.ReportInfo[0]);
-  }
-);
+// mws.reports.search(
+//   {
+//     Version: "2009-01-01",
+//     Action: "GetReportList",
+//     SellerId: MWS_SELLER_ID,
+//     MWSAuthToken: MWS_AUTH_TOKEN,
+//     "ReportTypeList.Type.1": "_GET_AFN_INVENTORY_DATA_",
+//   },
+//   (error, response) => {
+//     if (error) {
+//       console.log("error ", error);
+//       return;
+//     }
+//     getReport(response.ReportInfo[0].ReportId);
+//     console.log("response", response.ReportInfo[0]);
+//   }
+// );
 
-function getReport(reportId) {
-  mws.reports.search(
-    {
-      Version: "2009-01-01",
-      Action: "GetReport",
-      SellerId: MWS_SELLER_ID,
-      MWSAuthToken: MWS_AUTH_TOKEN,
-      ReportId: reportId,
-    },
-    (error, response) => {
-      if (error) {
-        console.log("error ", error);
-        return;
-      }
-      console.log("response", response);
-    }
-  );
-}
+// function getReport(reportId) {
+//   mws.reports.search(
+//     {
+//       Version: "2009-01-01",
+//       Action: "GetReport",
+//       SellerId: MWS_SELLER_ID,
+//       MWSAuthToken: MWS_AUTH_TOKEN,
+//       ReportId: reportId,
+//     },
+//     (error, response) => {
+//       if (error) {
+//         console.log("error ", error);
+//         return;
+//       }
+//       console.log("response", response);
+//     }
+//   );
+// }
