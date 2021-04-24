@@ -18,6 +18,10 @@ app.listen(PORT, () => {
   console.log(`Running on Port: ${PORT}`);
 });
 
+app.get("/", (req, res) => {
+  res.send("Home");
+});
+
 //Process Imports
 const EMAIL_RECIPIENT = process.env.EMAIL_RECIPIENT;
 const EMAIL_USER = process.env.EMAIL_USER;
