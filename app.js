@@ -3,6 +3,7 @@ import Mongoose from "mongoose";
 import dotenv from "dotenv";
 import cron from "node-cron";
 import express from "express";
+import nodemailer from "nodemailer";
 
 const PORT = process.env.PORT || 3000;
 
@@ -14,15 +15,50 @@ app.listen(PORT, () => {
   console.log(`Running on Port: ${PORT}`);
 });
 
-cron.schedule("* * * * *", () => {
-  console.log("running every minute");
+const EMAIL_RECIPIENT = process.env.EMAIL_RECIPIENT;
+const EMAIL_USER = process.env.EMAIL_USER;
+const EMAIL_PASS = process.env.EMAIL_PASS;
+
+async function main() {
+  const account = await nodemailer.createTestAccount();
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: EMAIL_USER,
+      pass: EMAIL_PASS,
+    },
+  });
+
+  const mailOptions = {
+    from: "Me",
+    to: EMAIL_RECIPIENT,
+    subject: "Test",
+    text: "Hello World",
+    html: "<p>Hello World</p>",
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+}
+
+cron.schedule("0 * * * *", () => {
+  console.log("running every hour");
+  main().catch((err) => {
+    console.log(err);
+  });
 });
 
-const MWS_SECRET_KEY = process.env.MWS_SECRET_KEY;
-const MWS_SELLER_ID = process.env.MWS_SELLER_ID;
-const MWS_AUTH_TOKEN = process.env.MWS_AUTH_TOKEN;
-const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
-const MONGODB_CONNECTION_URL = process.env.MONGODB_CONNECTION_URL;
+// const MWS_SECRET_KEY = process.env.MWS_SECRET_KEY;
+// const MWS_SELLER_ID = process.env.MWS_SELLER_ID;
+// const MWS_AUTH_TOKEN = process.env.MWS_AUTH_TOKEN;
+// const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+// const MONGODB_CONNECTION_URL = process.env.MONGODB_CONNECTION_URL;
 
 //MongoDB
 // const AFNProductSchema = new Mongoose.Schema({
