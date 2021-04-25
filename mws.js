@@ -21,7 +21,7 @@ function GetReportList(reportType) {
       Action: "GetReportList",
       SellerId: MWS_SELLER_ID,
       MWSAuthToken: MWS_AUTH_TOKEN,
-      "ReportTypeList.Type.1": reportType, // _GET_MERCHANT_LISTINGS_DATA_ _GET_AFN_INVENTORY_DATA_
+      "ReportTypeList.Type.1": reportType,
     },
     (error, response) => {
       if (error) {
@@ -30,12 +30,12 @@ function GetReportList(reportType) {
       }
       console.log("Report found with ID: ", response.ReportInfo[0].ReportId);
       console.log("Grabbing report");
-      GetReport(response.ReportInfo[0].ReportId);
+      GetReport(response.ReportInfo[0].ReportId, reportType);
     }
   );
 }
 
-function GetReport(reportId) {
+function GetReport(reportId, reportType) {
   mws.reports.search(
     {
       Version: "2009-01-01",
@@ -50,7 +50,7 @@ function GetReport(reportId) {
         return;
       }
       console.log("Inserting into DB");
-      insert(response.data);
+      insert(response.data, reportType);
     }
   );
 }

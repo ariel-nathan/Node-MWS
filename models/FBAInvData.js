@@ -12,4 +12,4 @@ const AFNProductSchema = new Mongoose.Schema({
     default: Date.now,
   },
 });
-export const FBAInv = Mongoose.model("Product", AFNProductSchema);
+export const FBAInv = Mongoose.model("Inventory-Data", AFNProductSchema);

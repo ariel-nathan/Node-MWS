@@ -23,8 +23,10 @@ app.get("/", (req, res) => {
 });
 
 //Routes
-import productsRoute from "./routes/invData.js";
-app.use("/invdata", productsRoute);
+import invDataRoute from "./routes/invData.js";
+import listingDataRoute from "./routes/listingData.js";
+app.use("/invdata", invDataRoute);
+app.use("/listingdata", listingDataRoute);
 
 Mongoose.connect(
   MONGODB_CONNECTION_URL,
@@ -33,14 +35,22 @@ Mongoose.connect(
     useUnifiedTopology: true,
   },
   () => {
-    console.log("Connected to DB");
+    console.log("Connected to DB | API Live");
   }
 );
 
 // Cron
 cron.schedule("5 * * * *", () => {
-  console.log("running every 5 minutes past the hour");
+  console.log("Getting FBA Inventory Data (Every 5 minutes past the hour)");
   GetReportList("_GET_AFN_INVENTORY_DATA_");
+  sendEmail("Getting Reports", "Fetching reports from MWS").catch((err) => {
+    console.log(err);
+  });
+});
+
+cron.schedule("10 * * * *", () => {
+  console.log("Getting Listing Data (Every 10 minutes past the hour)");
+  GetReportList("_GET_MERCHANT_LISTINGS_DATA_");
   sendEmail("Getting Reports", "Fetching reports from MWS").catch((err) => {
     console.log(err);
   });

@@ -54,4 +54,7 @@ const MerchantListingDataSchema = new Mongoose.Schema({
   },
 });
 
-export const Listing = new Mongoose.model("listing", MerchantListingDataSchema);
+export const ListingData = new Mongoose.model(
+  "Listing-Data",
+  MerchantListingDataSchema
+);
