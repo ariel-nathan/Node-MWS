@@ -72,6 +72,9 @@ sendEmail().catch((err) => {
   console.log(err);
 });
 
+console.log(EMAIL_RECIPIENT);
+console.log(process.env.EMAIL_RECIPIENT);
+
 // cron.schedule("* * * * *", () => {
 //   console.log("running every minute");
 //   sendEmail().catch((err) => {
