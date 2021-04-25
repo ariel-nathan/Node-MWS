@@ -18,16 +18,13 @@ function insertOne(data) {
 
   db.once("open", () => {
     console.log("Connected to DB");
-    data.forEach((item, i) => {
-      setTimeout(() => {
-        const product = new Product(item);
-        product.save((err, product) => {
-          if (err) return console.log(err);
-          console.log("Inserted record to DB");
-          console.log(product["seller-sku"]);
-        });
-      }, (i + 1) * 5000);
-    });
+    Product.insertMany(data)
+      .then(() => {
+        console.log("Inserted All Records to DB");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 }
 
