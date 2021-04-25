@@ -152,7 +152,7 @@ Project Link: [https://github.com/ariel-nathan/Node-MWS-API](https://github.com/
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [lastcommit-shield]: https://img.shields.io/github/last-commit/ariel-nathan/Node-MWS-API/main?style=flat-square
-[license-shield]: https://img.shields.io/github/license/ariel-nathan/Node-MWS-API?style=flat-square
+[license-shield]: https://img.shields.io/github/license/ariel-nathan/Node-MWS-API?label=license&style=flat-square
 [license-url]: https://github.com/ariel-nathan/Node-MWS-API/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/ariel-nathan
