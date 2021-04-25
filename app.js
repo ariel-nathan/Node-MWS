@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cron from "node-cron";
 import express from "express";
 import nodemailer from "nodemailer";
+import xoauth2 from "xoauth2";
 
 // import { response } from "./MerchantListingsData.js";
 // console.log(response[0]);
@@ -26,6 +27,10 @@ app.get("/", (req, res) => {
 const EMAIL_RECIPIENT = process.env.EMAIL_RECIPIENT;
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const GOOGLE_REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN;
+const GOOGLE_ACCESS_TOKEN = process.env.GOOGLE_ACCESS_TOKEN;
 // const MWS_SECRET_KEY = process.env.MWS_SECRET_KEY;
 // const MWS_SELLER_ID = process.env.MWS_SELLER_ID;
 // const MWS_AUTH_TOKEN = process.env.MWS_AUTH_TOKEN;
@@ -37,30 +42,34 @@ async function sendEmail() {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
+      type: "OAuth2",
       user: EMAIL_USER,
-      pass: EMAIL_PASS,
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      refreshToken: GOOGLE_REFRESH_TOKEN,
+      accessToken: GOOGLE_ACCESS_TOKEN,
     },
   });
 
   const mailOptions = {
-    from: "Me",
+    from: EMAIL_USER,
     to: EMAIL_RECIPIENT,
     subject: "Test",
     text: "Hello World",
     html: "<p>Hello World</p>",
   };
 
-  transporter.sendMail(mailOptions, (err, info) => {
+  transporter.sendMail(mailOptions, (err, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log("Email sent: " + info.response);
+      console.log("Email sent: " + res.response);
     }
   });
 }
 
-cron.schedule("0 * * * *", () => {
-  console.log("running every hour");
+cron.schedule("*/5 * * * *", () => {
+  console.log("running every minute");
   sendEmail().catch((err) => {
     console.log(err);
   });
