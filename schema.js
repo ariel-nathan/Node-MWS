@@ -7,6 +7,7 @@ const AFNProductSchema = new Mongoose.Schema({
   "condition-type": String,
   "Warehouse-Condition-code": String,
   "Quantity Available": Number,
+  timestamp: Date,
 });
 export const Product = Mongoose.model("product", AFNProductSchema);
 
@@ -58,5 +59,6 @@ const MerchantListingDataSchema = new Mongoose.Schema({
   "Progressive Price 2": String,
   "Progressive Lower Bound 3": String,
   "Progressive Price 3": String,
+  timestamp: Date,
 });
 export const Listing = new Mongoose.model("listing", MerchantListingDataSchema);

@@ -52,9 +52,14 @@ function GetReport(reportId) {
         return;
       }
       console.log("Inserting into DB");
+      response.data.forEach((element) => {
+        element["timestamp"] = new Date();
+      });
       insert(response.data);
     }
   );
 }
+
+GetReportList("_GET_AFN_INVENTORY_DATA_");
 
 export default GetReportList;
