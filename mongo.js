@@ -7,7 +7,7 @@ dotenv.config();
 
 const MONGODB_CONNECTION_URL = process.env.MONGODB_CONNECTION_URL;
 
-function insertOne(data) {
+function insert(data) {
   Mongoose.connect(MONGODB_CONNECTION_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -31,4 +31,4 @@ function insertOne(data) {
   });
 }
 
-export default insertOne;
+export default insert;

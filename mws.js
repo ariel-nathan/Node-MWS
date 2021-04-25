@@ -1,7 +1,7 @@
 import MwsApi from "amazon-mws";
 import cron from "node-cron";
 import dotenv from "dotenv";
-import insertOne from "./mongo.js";
+import insert from "./mongo.js";
 import fs from "fs";
 
 dotenv.config();
@@ -52,7 +52,7 @@ function GetReport(reportId) {
         return;
       }
       console.log("Inserting into DB");
-      insertOne(response.data);
+      insert(response.data);
     }
   );
 }
