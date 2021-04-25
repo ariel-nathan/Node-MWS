@@ -78,13 +78,13 @@ This project is built with the intention of creating a data visualization tool i
 
 ### Built With
 
-- [Node.js]()
-- [Express]()
-- [Nodemailer]()
-- [Mongoose]()
-- [MongoDB]()
-- [googleapis]()
-- [amazon-mws API]()
+- [Node.js](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
+- [Nodemailer](https://nodemailer.com/about/)
+- [Mongoose](https://mongoosejs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [googleapis](https://github.com/googleapis/google-api-nodejs-client#readme)
+- [amazon-mww](https://github.com/bhushankumarl/amazon-mws)
 
 <!-- GETTING STARTED -->
 
@@ -94,7 +94,7 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-You must have Node.js installed on your machine.
+You must have [Node.js](https://nodejs.org/en/) installed on your machine.
 
 ### Installation
 
