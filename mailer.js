@@ -10,7 +10,6 @@ const EMAIL_USER = process.env.EMAIL_USER;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const GOOGLE_REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN;
-const GOOGLE_ACCESS_TOKEN = process.env.GOOGLE_ACCESS_TOKEN;
 const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI;
 
 const oAuth2Client = new google.auth.OAuth2(

@@ -1,8 +1,6 @@
 import MwsApi from "amazon-mws";
-import cron from "node-cron";
 import dotenv from "dotenv";
-import insert from "./mongo.js";
-import fs from "fs";
+import insert from "./insertData.js";
 
 dotenv.config();
 
@@ -52,14 +50,9 @@ function GetReport(reportId) {
         return;
       }
       console.log("Inserting into DB");
-      response.data.forEach((element) => {
-        element["timestamp"] = new Date();
-      });
       insert(response.data);
     }
   );
 }
-
-GetReportList("_GET_AFN_INVENTORY_DATA_");
 
 export default GetReportList;

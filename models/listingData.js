@@ -1,16 +1,5 @@
 import Mongoose from "mongoose";
 
-const AFNProductSchema = new Mongoose.Schema({
-  "seller-sku": String,
-  "fulfillment-channel-sku": String,
-  asin: String,
-  "condition-type": String,
-  "Warehouse-Condition-code": String,
-  "Quantity Available": Number,
-  timestamp: Date,
-});
-export const Product = Mongoose.model("product", AFNProductSchema);
-
 const MerchantListingDataSchema = new Mongoose.Schema({
   "item-name": String,
   "item-description": String,
@@ -59,7 +48,10 @@ const MerchantListingDataSchema = new Mongoose.Schema({
   "Progressive Price 2": String,
   "Progressive Lower Bound 3": String,
   "Progressive Price 3": String,
-  timestamp: Date,
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export const Listing = new Mongoose.model("listing", MerchantListingDataSchema);
