@@ -61,4 +61,5 @@ const MerchantListingDataSchema = new Mongoose.Schema({
   "Progressive Price 3": String,
   timestamp: Date,
 });
+
 export const Listing = new Mongoose.model("listing", MerchantListingDataSchema);
