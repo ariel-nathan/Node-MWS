@@ -68,12 +68,16 @@ async function sendEmail() {
   });
 }
 
-cron.schedule("*/5 * * * *", () => {
-  console.log("running every minute");
-  sendEmail().catch((err) => {
-    console.log(err);
-  });
+sendEmail().catch((err) => {
+  console.log(err);
 });
+
+// cron.schedule("* * * * *", () => {
+//   console.log("running every minute");
+//   sendEmail().catch((err) => {
+//     console.log(err);
+//   });
+// });
 
 // MongoDB
 // const AFNProductSchema = new Mongoose.Schema({
