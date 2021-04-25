@@ -1,6 +1,7 @@
 import Mongoose from "mongoose";
-import { Product, Listing } from "./schema.js";
 import dotenv from "dotenv";
+import { Product, Listing } from "./schema.js";
+import sendEmail from "./mailer.js";
 
 dotenv.config();
 
@@ -21,9 +22,11 @@ function insertOne(data) {
     Product.insertMany(data)
       .then(() => {
         console.log("Inserted All Records to DB");
+        sendEmail("Success", "All records added to DB succesfully");
       })
       .catch((err) => {
         console.log(err);
+        sendEmail("Error", "Error:\n" + err);
       });
   });
 }
