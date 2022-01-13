@@ -84,7 +84,7 @@ This project is built with the intention of creating a data visualization tool i
 - [Mongoose](https://mongoosejs.com/)
 - [MongoDB](https://www.mongodb.com/)
 - [googleapis](https://github.com/googleapis/google-api-nodejs-client#readme)
-- [amazon-mww](https://github.com/bhushankumarl/amazon-mws)
+- [amazon-mws](https://github.com/bhushankumarl/amazon-mws)
 
 <!-- GETTING STARTED -->
 
